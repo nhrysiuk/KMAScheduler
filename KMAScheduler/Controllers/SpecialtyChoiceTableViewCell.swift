@@ -1,5 +1,5 @@
 //
-//  NormativeTableViewCell.swift
+//  SpecialtyChoiceTableViewCell.swift
 //  KMAScheduler
 //
 //  Created by Анастасія Грисюк on 12.01.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NormativeTableViewCell: UITableViewCell {
+class SpecialtyChoiceTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
