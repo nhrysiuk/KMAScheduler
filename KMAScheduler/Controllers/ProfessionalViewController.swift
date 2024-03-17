@@ -1,18 +1,18 @@
 //
-//  SpecialtyViewController.swift
+//  ProfessionalViewController.swift
 //  KMAScheduler
 //
-//  Created by Анастасія Грисюк on 11.01.2024.
+//  Created by Анастасія Грисюк on 17.03.2024.
 //
 
 import UIKit
 
-class SpecialtyViewController: UIViewController, UITableViewDelegate {
+class ProfessionalViewController: UIViewController, UITableViewDelegate {
+
+    var delegate: NormativeProtocol?
     
-    var delegate: CurrentSpecialtyDelegate?
-    
-    var filteredSpecialties: [String] = []
-    var isFiltering = false
+    var filteredSubjects = [Subject]()
+    var professionalSubjects = [Subject]()
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -30,18 +30,25 @@ class SpecialtyViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchData()
         setupUI()
     }
     
+    func fetchData() {
+        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
+        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
+        professionalSubjects = allSubjects.filter { $0.specialty == mySpecialty.name &&
+            $0.type == "prof" && !$0.isRegistered }
+        print(professionalSubjects)
+    }
+    
     func setupUI() {
-        
-        tableView.register(SpecialtyChoiceTableViewCell.self, forCellReuseIdentifier: "SpecialtyChoice")
+        tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
         
         view.backgroundColor = UIColor.backgroundBlue
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.backBarButtonItem?.tintColor = .darkBlue
-
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CustomCell")
         
         view.addSubview(searchBar)
         view.addSubview(tableView)
@@ -60,7 +67,7 @@ class SpecialtyViewController: UIViewController, UITableViewDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        filteredSpecialties = Const.specialties
+        filteredSubjects = professionalSubjects
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -70,18 +77,19 @@ class SpecialtyViewController: UIViewController, UITableViewDelegate {
 
 // MARK: - Table view data source
 
-extension SpecialtyViewController: UITableViewDataSource {
+extension ProfessionalViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredSpecialties.count
+        print(filteredSubjects.count)
+        return filteredSubjects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyChoice", for: indexPath) as! SpecialtyChoiceTableViewCell
-        if filteredSpecialties.isEmpty {
-            cell.label.text = Const.specialties[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
+        if filteredSubjects.isEmpty {
+            cell.label.text = professionalSubjects[indexPath.row].name
         } else {
-            cell.label.text = filteredSpecialties[indexPath.row]
+            cell.label.text = filteredSubjects[indexPath.row].name
         }
         
         return cell
@@ -93,34 +101,32 @@ extension SpecialtyViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let specialty = if filteredSpecialties.isEmpty {
-            Const.specialties[indexPath.row]
+        let subjectToAdd = if filteredSubjects.isEmpty {
+            professionalSubjects[indexPath.row]
         } else {
-            filteredSpecialties[indexPath.row]
+            filteredSubjects[indexPath.row]
         }
         
-        CoreDataProcessor.shared.deleteExistingSpecialties()
+        subjectToAdd.isRegistered = true
         
-        let newSpecialty = MySpecialty(context: CoreDataProcessor.shared.context)
-        newSpecialty.name = specialty
         CoreDataProcessor.shared.saveContext()
         
-        delegate?.update()
+        delegate?.fetchData()
         
         self.dismiss(animated: true)
     }
 }
 
-extension SpecialtyViewController: UISearchBarDelegate {
+extension ProfessionalViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            self.filteredSpecialties = Const.specialties
+            self.filteredSubjects = professionalSubjects
             self.tableView.reloadData()
             return
         }
         
-        self.filteredSpecialties = Const.specialties.filter {$0.contains(searchText)}
+        self.filteredSubjects = professionalSubjects.filter {$0.name!.contains(searchText)}
         self.tableView.reloadData()
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CurrentSpecialtyDelegate {
-    func updateUI()
+    func update()
 }
 
 class CurrentSpecialtyViewController: UIViewController, CurrentSpecialtyDelegate {
@@ -53,16 +53,19 @@ class CurrentSpecialtyViewController: UIViewController, CurrentSpecialtyDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateUI()
+        update()
     }
     
     func setupUI() {
         view.backgroundColor = UIColor.backgroundBlue
-
+        
+        specialtyLabel.text = "Не обрано"
+        button.setTitle("Обрати", for: .normal)
+        
         view.addSubview(label)
         view.addSubview(specialtyLabel)
         view.addSubview(button)
-       
+        
         self.navigationController?.navigationBar.tintColor = .darkBlue
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -81,20 +84,38 @@ class CurrentSpecialtyViewController: UIViewController, CurrentSpecialtyDelegate
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.topAnchor.constraint(equalTo: specialtyLabel.bottomAnchor, constant: 20.0),
         ])
-
+        
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
-    func updateUI() {
+    func update() {
         let nameData = CoreDataProcessor.shared.fetch(MySpecialty.self)
         
-        if nameData.isEmpty {
-            specialtyLabel.text = "Не обрано"
-            button.setTitle("Обрати", for: .normal)
-        } else {
-            DispatchQueue.main.async {
-                guard let name = nameData.first!.name else { return }
-                self.specialtyLabel.text = name
+        guard let specialty = nameData.first else { return }
+        updateUI(with: specialty)
+        updateData(with: specialty)
+    }
+    
+    func updateUI(with specialty: MySpecialty) {
+        DispatchQueue.main.async {
+            guard let name = specialty.name else { return }
+            self.specialtyLabel.text = name
+        }
+    }
+    
+    func updateData(with specialty: MySpecialty) {
+        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
+        
+        allSubjects.forEach { subject in
+            if subject.isRegistered && subject.type == "normative" {
+                subject.isRegistered = false
+                subject.group = 0
+            }
+        }
+        
+        allSubjects.forEach { subject in
+            if subject.type == "normative" && subject.specialty == specialty.name {
+                subject.isRegistered = true
             }
         }
     }

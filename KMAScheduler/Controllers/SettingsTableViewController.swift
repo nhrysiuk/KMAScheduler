@@ -25,8 +25,8 @@ class SettingsTableViewController: UITableViewController {
         self.navigationItem.title = "Налаштування"
         tableView.register(SpecialtyTableViewCell.self, forCellReuseIdentifier: "Specialty")
         tableView.register(NormativeTableViewCell.self, forCellReuseIdentifier: "Normative")
+        tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
         tableView.register(SelectiveTableViewCell.self, forCellReuseIdentifier: "Selective")
-        
     }
     
     func fetchSubjectsIfNeeded() {
@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,6 +54,9 @@ class SettingsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Normative", for: indexPath) as! NormativeTableViewCell
             return cell
         case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
+            return cell
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Selective", for: indexPath) as! SelectiveTableViewCell
             return cell
         default:
@@ -79,7 +82,11 @@ class SettingsTableViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
             break
         case 2:
-            let vc = SelectiveTableViewController()
+            let vc = ProfessionalTableViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case 3:
+            let vc = SelectionTableViewController()
             navigationController?.pushViewController(vc, animated: true)
             break
         default:

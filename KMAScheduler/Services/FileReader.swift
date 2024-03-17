@@ -40,7 +40,7 @@ class FileReader {
         subject.trimester = model.trimester
         subject.numberOfGroups = model.numberOfGroups
         subject.type = model.type
-        subject.isRegistred = model.isRegistred
+        subject.isRegistered = model.isRegistered
         subject.group = model.group
     }
 }

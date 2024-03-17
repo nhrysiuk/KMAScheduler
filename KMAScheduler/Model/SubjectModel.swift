@@ -11,5 +11,5 @@ struct SubjectModel: Decodable {
     let name, faculty, specialty: String
     let year, trimester, numberOfGroups, id, group: Int64
     let type: String
-    let isRegistred: Bool
+    let isRegistered: Bool
 }

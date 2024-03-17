@@ -27,7 +27,6 @@ class NormativeTableViewController: UITableViewController, NormativeProtocol {
         normatives = allSubjects.filter { $0.type == "normative" && $0.specialty == mySpecialty.name }
     }
     
-
     func setup() {
         self.tableView.backgroundColor = UIColor.backgroundBlue
         

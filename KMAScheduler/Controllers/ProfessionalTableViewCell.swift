@@ -1,21 +1,22 @@
 //
-//SpecialtyChoiceTableViewCell.swift
-//KMAScheduler
+//  ProfessionalTableViewCell.swift
+//  KMAScheduler
 //
-//Created by Анастасія Грисюк on 12.01.2024.
-
+//  Created by Анастасія Грисюк on 17.03.2024.
+//
 
 import UIKit
 
-class SpecialtyChoiceTableViewCell: UITableViewCell {
+class ProfessionalTableViewCell: UITableViewCell {
+
+    static let identifier = "Professional"
     
-    static let identifier = "SpecialtyChoice"
-    
-    var label: UILabel = {
+    let label: UILabel = {
         let label = UILabel()
         label.textColor = .darkBlue
         label.textAlignment = .left
         label.font = UIFont(name: "ProbaPro-Medium", size: 24)
+        label.text = "Професійно-орієнтовані"
         return label
     }()
     
@@ -31,14 +32,16 @@ class SpecialtyChoiceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        // Configure the view for the selected state
     }
     
     func setupUI() {
         self.backgroundColor = UIColor.backgroundBlue
         
+        self.accessoryType = .disclosureIndicator
         self.contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -49,4 +52,7 @@ class SpecialtyChoiceTableViewCell: UITableViewCell {
             label.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
         ])
     }
+    
+    
+
 }
