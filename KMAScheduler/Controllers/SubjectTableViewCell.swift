@@ -1,5 +1,5 @@
 //
-//  SpecialtyChoiceTableViewCell.swift
+//  SubjectTableViewCell.swift
 //  KMAScheduler
 //
 //  Created by Анастасія Грисюк on 12.01.2024.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SpecialtyChoiceTableViewCell: UITableViewCell {
+class SubjectTableViewCell: UITableViewCell {
 
-    static let identifier = "SpecialtyChoice"
+    static let identifier = "Subject"
     
     var label: UILabel = {
         let label = UILabel()
@@ -38,6 +38,8 @@ class SpecialtyChoiceTableViewCell: UITableViewCell {
     
     func setupUI() {
         self.backgroundColor = UIColor.backgroundBlue
+        
+        self.accessoryType = .disclosureIndicator
         
         self.contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false

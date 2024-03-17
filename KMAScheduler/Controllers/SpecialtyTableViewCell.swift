@@ -9,14 +9,14 @@ import UIKit
 
 class SpecialtyTableViewCell: UITableViewCell {
 
-    static let identifier = "Normative"
+    static let identifier = "Specialty"
     
     private let myLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = .darkBlue
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.text = "Нормативні"
+        label.font = UIFont(name: "ProbaPro-Medium", size: 24)
+        label.text = "Спеціальність"
         return label
     }()
     
@@ -35,8 +35,6 @@ class SpecialtyTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setupUI() {
@@ -53,7 +51,4 @@ class SpecialtyTableViewCell: UITableViewCell {
             myLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
         ])
     }
-    
-    
-
 }

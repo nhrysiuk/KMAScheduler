@@ -22,6 +22,7 @@ class TabBarViewController: UITabBarController {
 
 extension UIColor {
     public class var darkBlue: UIColor { UIColor(red: 6/255, green: 33/255, blue: 89/255, alpha: 1.0) }
-    public class var backgroundBlue: UIColor { UIColor(red: 149/255, green: 172/255, blue: 224/255, alpha: 1.0) }
-    // TODO: - додати кольори
+    public class var backgroundBlue: UIColor { UIColor(red: 222/255, green: 232/255, blue: 255/255, alpha: 1.0) }
+    public class var lightBlue: UIColor { UIColor(red: 235/255, green: 242/255, blue: 255/255, alpha: 1.0) }
+    public class var brightBlue: UIColor { UIColor(red: 13/255, green: 82/255, blue: 191/255, alpha: 1.0) }
 }

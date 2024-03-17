@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "19A662AC-33E3-4CD7-B0FD-69F642BF1341"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B3E288E-04FF-41E5-A706-8EA071620CCC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KMAScheduler/Controllers/SettingsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "fetchSubjectsIfNeeded()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B3E288E-04FF-41E5-A706-8EA071620CCC - 19651f884994c782"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KMAScheduler.SettingsTableViewController.fetchSubjectsIfNeeded() -&gt; ()"
+                  moduleName = "KMAScheduler"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anastasiia.hrysiuk/Desktop/%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0/KMAScheduler/KMAScheduler/Controllers/SettingsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "2B3E288E-04FF-41E5-A706-8EA071620CCC - 19651f884994c782"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KMAScheduler.SettingsTableViewController.fetchSubjectsIfNeeded() -&gt; ()"
+                  moduleName = "KMAScheduler"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anastasiia.hrysiuk/Desktop/%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0/KMAScheduler/KMAScheduler/Controllers/SettingsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "200">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

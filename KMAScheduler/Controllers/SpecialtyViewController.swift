@@ -7,16 +7,16 @@
 
 import UIKit
 
-class SpecialtyViewController: UIViewController {
+class SpecialtyViewController: UIViewController, UITableViewDelegate {
     
-    var specialities = ["121.Інженерія програмного забезпечення", "122.Компʼютерні наукма", "035.Філологія", "081.Право", "037.Філософія"]
+    var delegate: CurrentSpecialtyDelegate?
     
-    var filteredSpecialaities: [String] = []
-    
+    var filteredSpecialties: [String] = []
     
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor.backgroundBlue
+        
         return tableView
     }()
     
@@ -33,37 +33,89 @@ class SpecialtyViewController: UIViewController {
     }
     
     func setupUI() {
-        self.view.backgroundColor = UIColor.backgroundBlue
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationItem.backBarButtonItem?.tintColor = .darkBlue
         
+        tableView.register(SpecialtyChoiceTableViewCell.self, forCellReuseIdentifier: "SpecialtyChoice")
         
-        self.view.addSubview(searchBar)
-        self.view.addSubview(tableView)
+        view.backgroundColor = UIColor.backgroundBlue
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.backBarButtonItem?.tintColor = .darkBlue
+
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CustomCell")
+        
+        view.addSubview(searchBar)
+        view.addSubview(tableView)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        filteredSpecialties = Const.specialties
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
+    }
+}
+
+// MARK: - Table view data source
+
+extension SpecialtyViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredSpecialties.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyChoice", for: indexPath) as! SpecialtyChoiceTableViewCell
+        if filteredSpecialties.isEmpty {
+            cell.label.text = Const.specialties[indexPath.row]
+        } else {
+            cell.label.text = filteredSpecialties[indexPath.row]
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let specialty = Const.specialties[indexPath.row]
+        
+        CoreDataProcessor.shared.deleteExistingSpecialties()
+        
+        let newSpecialty = MySpecialty(context: CoreDataProcessor.shared.context)
+        newSpecialty.name = specialty
+        CoreDataProcessor.shared.saveContext()
+        
+        delegate?.updateUI()
+        
+        self.dismiss(animated: true)
     }
 }
 
 extension SpecialtyViewController: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            self.filteredSpecialaities = self.specialities
+            self.filteredSpecialties = Const.specialties
             self.tableView.reloadData()
             return
         }
         
-        self.filteredSpecialaities = self.specialities.filter {$0.contains(searchText)}
+        self.filteredSpecialties = Const.specialties.filter {$0.contains(searchText)}
         self.tableView.reloadData()
     }
 }
