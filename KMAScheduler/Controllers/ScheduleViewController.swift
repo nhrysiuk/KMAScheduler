@@ -9,9 +9,9 @@ import UIKit
 
 class ScheduleViewController: UIViewController, UITableViewDelegate {
     
-    var specialties = ["08:30 - Swift", "10:00 - Теорія права"]
+    var lessons = [Lesson]()
     
-    var filteredSpecialties: [String] = []
+    var filteredSpecialties = [Lesson]()
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -30,6 +30,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         setupUI()
     
+        fetchLessonsIfNeeded()
+        fetchLessons(for: Date())
+        tableView.reloadData()
     }
     
     func setupUI() {
@@ -61,18 +64,59 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        filteredSpecialties = specialties
+        filteredSpecialties = lessons
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        setWeek()
+        setWeek(for: Date())
     }
     
-    func setWeek() {
-        guard let weekNumber = Calendar.current.dateComponents([.weekOfYear], from: Date()).weekOfYear else {
-            return
+    func fetchLessonsIfNeeded() {
+        let data = CoreDataProcessor.shared.fetch(Lesson.self)
+        guard data.isEmpty else { return }
+        FileReader.fetchLessonsFromFile()
+    }
+    
+    func fetchLessons(for date: Date) {
+        let fetchedLessons = CoreDataProcessor.shared.fetch(Lesson.self)
+        
+        guard !fetchedLessons.isEmpty else { return }
+
+        let subjects = CoreDataProcessor.shared.fetch(Subject.self)
+        let filteredSubjects = subjects.filter { $0.isRegistered }
+        let ids = filteredSubjects.map { $0.id }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
+        let calendar = Calendar.current
+        let date1 = calendar.dateComponents([.day, .month, .year], from: date)
+        
+        let filteredLessons = fetchedLessons.filter { lesson in
+            guard let dateString = dateFormatter.date(from: lesson.lessonDate!) else { return false }
+            let date2 = calendar.dateComponents([.day, .month, .year], from: dateString)
+            
+            let subject = filteredSubjects.first { $0.id == lesson.id }
+            let group = subject?.group
+
+            if ids.contains(lesson.id) && date2 == date1 && lesson.group == group {
+                print(lesson.id)
+                return true
+            } else {
+                return false
+            }
         }
+        
+        lessons = filteredLessons
+        tableView.reloadData()
+        
+        print(lessons)
+    }
+    
+    #warning("")
+    func setWeek(for date: Date) {
+        guard let weekNumber = Calendar.current.dateComponents([.weekOfYear], from: date).weekOfYear else { return }
         
         let currWeek = weekNumber - 3
         self.navigationItem.title = "Тиждень \(currWeek)"
@@ -84,13 +128,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
 extension ScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredSpecialties.count
+        return lessons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Subject", for: indexPath) as! SubjectTableViewCell
         
-        cell.label.text = specialties[indexPath.row]
+        if let name = lessons[indexPath.row].name, let time = lessons[indexPath.row].lessonTime {
+            print(name)
+            cell.label.text = String(name) + " " + String(time)
+        }
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
 
         return cell
     }
@@ -102,25 +153,15 @@ extension ScheduleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        present(LessonViewController(), animated: true)
+        navigationController?.present(LessonViewController(), animated: true)
     }
     
     @objc func dateValueChanged() {
+        let date = self.datePicker.date
         print(self.datePicker.date)
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-extension ScheduleViewController: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            self.filteredSpecialties = self.specialties
-            self.tableView.reloadData()
-            return
-        }
+        setWeek(for: date)
+        fetchLessons(for: date)
         
-        self.filteredSpecialties = self.specialties.filter {$0.contains(searchText)}
-        self.tableView.reloadData()
+        dismiss(animated: true, completion: nil)
     }
 }

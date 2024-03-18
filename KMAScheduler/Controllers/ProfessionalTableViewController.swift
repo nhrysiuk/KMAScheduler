@@ -19,11 +19,12 @@ class ProfessionalTableViewController: UITableViewController, NormativeProtocol 
     }
     
     func setup() {
-        self.tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.allowsSelection = false
         
-        self.navigationController?.navigationBar.tintColor = .darkBlue
-        self.navigationItem.title = "Професійні дисципліни"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationController?.navigationBar.tintColor = .darkBlue
+        navigationItem.title = "Професійні дисципліни"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         
         tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
     }
@@ -66,10 +67,24 @@ class ProfessionalTableViewController: UITableViewController, NormativeProtocol 
         
         cell.delegate = self
         cell.configure(with: selectives[indexPath.row])
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            selectives[indexPath.row].isRegistered = false
+            selectives[indexPath.row].group = 0
+            
+            fetchData()
+        }
     }
 }

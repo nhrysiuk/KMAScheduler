@@ -24,17 +24,20 @@ class SpecialtyViewController: UIViewController, UITableViewDelegate {
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.barTintColor = UIColor.backgroundBlue
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField {
+            textFieldInsideSearchBar.backgroundColor = UIColor.searchBarLightBlue
+        }
         
         return searchBar
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
     }
     
     func setupUI() {
-        
         tableView.register(SpecialtyChoiceTableViewCell.self, forCellReuseIdentifier: "SpecialtyChoice")
         
         view.backgroundColor = UIColor.backgroundBlue

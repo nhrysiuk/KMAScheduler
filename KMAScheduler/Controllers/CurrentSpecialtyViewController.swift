@@ -97,9 +97,10 @@ class CurrentSpecialtyViewController: UIViewController, CurrentSpecialtyDelegate
     }
     
     func updateUI(with specialty: MySpecialty) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             guard let name = specialty.name else { return }
             self.specialtyLabel.text = name
+            button.setTitle("Змінити", for: .normal)
         }
     }
     

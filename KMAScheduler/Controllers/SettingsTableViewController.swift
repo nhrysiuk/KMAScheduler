@@ -46,23 +46,26 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Specialty", for: indexPath) as! SpecialtyTableViewCell
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Specialty", for: indexPath) as! SpecialtyTableViewCell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Normative", for: indexPath) as! NormativeTableViewCell
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Normative", for: indexPath) as! NormativeTableViewCell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Selective", for: indexPath) as! SelectiveTableViewCell
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Selective", for: indexPath) as! SelectiveTableViewCell
         default:
             print(indexPath.row)
             fatalError()
         }
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

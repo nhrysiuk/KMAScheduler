@@ -9,12 +9,13 @@ import Foundation
 
 class FileReader {
     
-    static let filePath = Bundle.main.path(forResource: "lessons", ofType: "json")
+    static let subjectsFilePath = Bundle.main.path(forResource: "subjects", ofType: "json")
+    static let lessonsFilePath = Bundle.main.path(forResource: "schedule", ofType: "json")
     
     static func fetchSubjectsFromFile() {
         do {
-            if let filePath = filePath {
-                let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
+            if let subjectsFilePath = subjectsFilePath {
+                let data = try Data(contentsOf: URL(fileURLWithPath: subjectsFilePath))
                 let decoder = JSONDecoder()
                 let subjects = try decoder.decode([SubjectModel].self, from: data)
                 
@@ -42,5 +43,34 @@ class FileReader {
         subject.type = model.type
         subject.isRegistered = model.isRegistered
         subject.group = model.group
+    }
+    
+    static func fetchLessonsFromFile() {
+        do {
+            if let lessonsFilePath = lessonsFilePath {
+                let data = try Data(contentsOf: URL(fileURLWithPath: lessonsFilePath))
+                let decoder = JSONDecoder()
+                let lessons = try decoder.decode([LessonModel].self, from: data)
+                print(lessons)
+                saveLessonsToCoreData(lessons)
+            }
+        } catch {
+            print("Помилка при читанні або парсингу JSON-файлу з розкладом:", error.localizedDescription)
+        }
+    }
+    
+    static func saveLessonsToCoreData(_ lessons: [LessonModel]) {
+        lessons.forEach { convertLessonsToCD($0) }
+        CoreDataProcessor.shared.saveContext()
+    }
+    
+    static func convertLessonsToCD(_ model: LessonModel) {
+        let lesson = Lesson(context: CoreDataProcessor.shared.context)
+        lesson.id = model.id
+        lesson.auditorium = model.auditorium
+        lesson.lessonDate = model.date
+        lesson.lessonTime = model.time
+        lesson.group = model.group
+        lesson.name = model.name
     }
 }

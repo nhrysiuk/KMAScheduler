@@ -19,11 +19,12 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
     }
     
     func setup() {
-        self.tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.allowsSelection = false
         
-        self.navigationController?.navigationBar.tintColor = .darkBlue
-        self.navigationItem.title = "Вибіркові дисципліни"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationController?.navigationBar.tintColor = .darkBlue
+        navigationItem.title = "Вибіркові дисципліни"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         
         tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
     }
@@ -55,7 +56,6 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return selectives.count
     }
     
@@ -64,6 +64,11 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
         
         cell.delegate = self
         cell.configure(with: selectives[indexPath.row])
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
+        
         return cell
     }
     
@@ -71,5 +76,12 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
         return 60
     }
     
-    #error("додати можливість видалення")
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            selectives[indexPath.row].isRegistered = false
+            selectives[indexPath.row].group = 0
+            
+            fetchData()
+        }
+    }
 }

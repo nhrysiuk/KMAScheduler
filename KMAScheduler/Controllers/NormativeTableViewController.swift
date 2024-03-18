@@ -17,6 +17,7 @@ class NormativeTableViewController: UITableViewController, NormativeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setup()
         fetchData()
     }
@@ -28,12 +29,12 @@ class NormativeTableViewController: UITableViewController, NormativeProtocol {
     }
     
     func setup() {
-        self.tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.allowsSelection = false
+        navigationItem.backBarButtonItem?.title = "Налаштування"
         
-        self.navigationItem.backBarButtonItem?.title = "Налаштування"
-        
-        self.navigationController?.navigationBar.tintColor = .darkBlue
-        self.navigationItem.title = "Нормативні дисципліни"
+        navigationController?.navigationBar.tintColor = .darkBlue
+        navigationItem.title = "Нормативні дисципліни"
         
         tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
         
@@ -54,6 +55,10 @@ class NormativeTableViewController: UITableViewController, NormativeProtocol {
         
         cell.delegate = self
         cell.configure(with: normatives[indexPath.row])
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
         
         return cell
     }

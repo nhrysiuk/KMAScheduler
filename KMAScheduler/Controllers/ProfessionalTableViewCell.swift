@@ -19,7 +19,7 @@ class ProfessionalTableViewCell: UITableViewCell {
         label.text = "Професійно-орієнтовані"
         return label
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupUI()
@@ -31,11 +31,6 @@ class ProfessionalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
     func setupUI() {
@@ -52,7 +47,4 @@ class ProfessionalTableViewCell: UITableViewCell {
             label.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
         ])
     }
-    
-    
-
 }

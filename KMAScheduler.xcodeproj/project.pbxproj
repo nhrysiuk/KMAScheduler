@@ -19,16 +19,19 @@
 		1A094B4F2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B4E2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift */; };
 		1A094B512B4F598400D8E544 /* SelectiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B502B4F598400D8E544 /* SelectiveTableViewCell.swift */; };
 		1A094B532B50611A00D8E544 /* SpecialtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B522B50611A00D8E544 /* SpecialtyViewController.swift */; };
+		1A14295A2BC83DCF00963CA9 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1429592BC83DCF00963CA9 /* schedule.json */; };
+		1A14295C2BC8400700963CA9 /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14295B2BC8400700963CA9 /* LessonModel.swift */; };
 		1A58BE3D2B5192C5009B6540 /* NormativeGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A58BE3C2B5192C5009B6540 /* NormativeGroupTableViewCell.swift */; };
 		1A58F34F2B50A72900F9C85F /* NormativeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A58F34E2B50A72900F9C85F /* NormativeTableViewCell.swift */; };
 		1A58F3512B50A7B300F9C85F /* NormativeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A58F3502B50A7B300F9C85F /* NormativeTableViewController.swift */; };
 		1A58F3532B50A90300F9C85F /* CurrentSpecialtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A58F3522B50A90300F9C85F /* CurrentSpecialtyViewController.swift */; };
-		1A69D3E02BA3A0A300E548F6 /* lessons.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A69D3DF2BA3A0A300E548F6 /* lessons.json */; };
+		1A69D3E02BA3A0A300E548F6 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A69D3DF2BA3A0A300E548F6 /* subjects.json */; };
 		1A69D3E22BA5C9FE00E548F6 /* SubjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69D3E12BA5C9FE00E548F6 /* SubjectModel.swift */; };
 		1A69D3E42BA6E8DC00E548F6 /* ProfessionalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69D3E32BA6E8DC00E548F6 /* ProfessionalTableViewCell.swift */; };
 		1A69D3E62BA6E99400E548F6 /* SelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69D3E52BA6E99400E548F6 /* SelectionTableViewController.swift */; };
 		1A69D3E82BA7152000E548F6 /* ProfessionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69D3E72BA7152000E548F6 /* ProfessionalViewController.swift */; };
 		1A69D3EA2BA7454F00E548F6 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69D3E92BA7454F00E548F6 /* SelectionViewController.swift */; };
+		1A918F502BA8780500EEFE5D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A918F4F2BA8780500EEFE5D /* UIColorExtension.swift */; };
 		1AA53F5C2B51A932006219B4 /* ProbaPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AA53F5A2B51A932006219B4 /* ProbaPro-Medium.ttf */; };
 		1AA53F5D2B51A932006219B4 /* ProbaPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AA53F5B2B51A932006219B4 /* ProbaPro-Bold.ttf */; };
 		1AA61D352B51D42B008C3E3F /* SearchSelectiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA61D342B51D42B008C3E3F /* SearchSelectiveViewController.swift */; };
@@ -58,16 +61,19 @@
 		1A094B4E2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialtyTableViewCell.swift; sourceTree = "<group>"; };
 		1A094B502B4F598400D8E544 /* SelectiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveTableViewCell.swift; sourceTree = "<group>"; };
 		1A094B522B50611A00D8E544 /* SpecialtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialtyViewController.swift; sourceTree = "<group>"; };
+		1A1429592BC83DCF00963CA9 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schedule.json; sourceTree = "<group>"; };
+		1A14295B2BC8400700963CA9 /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
 		1A58BE3C2B5192C5009B6540 /* NormativeGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormativeGroupTableViewCell.swift; sourceTree = "<group>"; };
 		1A58F34E2B50A72900F9C85F /* NormativeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormativeTableViewCell.swift; sourceTree = "<group>"; };
 		1A58F3502B50A7B300F9C85F /* NormativeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormativeTableViewController.swift; sourceTree = "<group>"; };
 		1A58F3522B50A90300F9C85F /* CurrentSpecialtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpecialtyViewController.swift; sourceTree = "<group>"; };
-		1A69D3DF2BA3A0A300E548F6 /* lessons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = lessons.json; path = ../../prolog/lessons.json; sourceTree = "<group>"; };
+		1A69D3DF2BA3A0A300E548F6 /* subjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = subjects.json; path = ../../prolog/subjects.json; sourceTree = "<group>"; };
 		1A69D3E12BA5C9FE00E548F6 /* SubjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectModel.swift; sourceTree = "<group>"; };
 		1A69D3E32BA6E8DC00E548F6 /* ProfessionalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalTableViewCell.swift; sourceTree = "<group>"; };
 		1A69D3E52BA6E99400E548F6 /* SelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTableViewController.swift; sourceTree = "<group>"; };
 		1A69D3E72BA7152000E548F6 /* ProfessionalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalViewController.swift; sourceTree = "<group>"; };
 		1A69D3E92BA7454F00E548F6 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
+		1A918F4F2BA8780500EEFE5D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		1AA53F5A2B51A932006219B4 /* ProbaPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProbaPro-Medium.ttf"; sourceTree = "<group>"; };
 		1AA53F5B2B51A932006219B4 /* ProbaPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProbaPro-Bold.ttf"; sourceTree = "<group>"; };
 		1AA61D342B51D42B008C3E3F /* SearchSelectiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectiveViewController.swift; sourceTree = "<group>"; };
@@ -112,9 +118,11 @@
 		1A094B2B2B4E024200D8E544 /* KMAScheduler */ = {
 			isa = PBXGroup;
 			children = (
+				1A918F4E2BA877F000EEFE5D /* Additional */,
 				1AA53F5A2B51A932006219B4 /* ProbaPro-Medium.ttf */,
 				1AA53F5B2B51A932006219B4 /* ProbaPro-Bold.ttf */,
-				1A69D3DF2BA3A0A300E548F6 /* lessons.json */,
+				1A1429592BC83DCF00963CA9 /* schedule.json */,
+				1A69D3DF2BA3A0A300E548F6 /* subjects.json */,
 				1AE460722BA32A39006D2B07 /* Model */,
 				1AB595DF2B9B418E007EE602 /* Services */,
 				1A094B442B4F4D9600D8E544 /* Controllers */,
@@ -165,6 +173,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1A918F4E2BA877F000EEFE5D /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				1A918F4F2BA8780500EEFE5D /* UIColorExtension.swift */,
+			);
+			path = Additional;
+			sourceTree = "<group>";
+		};
 		1AB595DF2B9B418E007EE602 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +195,7 @@
 			children = (
 				1AE460732BA32A56006D2B07 /* Specialties.swift */,
 				1A69D3E12BA5C9FE00E548F6 /* SubjectModel.swift */,
+				1A14295B2BC8400700963CA9 /* LessonModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,8 +262,9 @@
 				1AA53F5D2B51A932006219B4 /* ProbaPro-Bold.ttf in Resources */,
 				1A094B362B4E024400D8E544 /* Assets.xcassets in Resources */,
 				1AA53F5C2B51A932006219B4 /* ProbaPro-Medium.ttf in Resources */,
+				1A14295A2BC83DCF00963CA9 /* schedule.json in Resources */,
 				1A094B342B4E024200D8E544 /* Main.storyboard in Resources */,
-				1A69D3E02BA3A0A300E548F6 /* lessons.json in Resources */,
+				1A69D3E02BA3A0A300E548F6 /* subjects.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,11 +292,13 @@
 				1AB595E12B9B41A8007EE602 /* FileReader.swift in Sources */,
 				1A094B2F2B4E024200D8E544 /* SceneDelegate.swift in Sources */,
 				1AA61D3D2B51ED9E008C3E3F /* SubjectTableViewCell.swift in Sources */,
+				1A14295C2BC8400700963CA9 /* LessonModel.swift in Sources */,
 				1A094B432B4F460400D8E544 /* TabBarViewController.swift in Sources */,
 				1A69D3E22BA5C9FE00E548F6 /* SubjectModel.swift in Sources */,
 				1AB595DE2B9B3937007EE602 /* SubjectsDataModel.xcdatamodeld in Sources */,
 				1A094B512B4F598400D8E544 /* SelectiveTableViewCell.swift in Sources */,
 				1A094B532B50611A00D8E544 /* SpecialtyViewController.swift in Sources */,
+				1A918F502BA8780500EEFE5D /* UIColorExtension.swift in Sources */,
 				1A094B4B2B4F532E00D8E544 /* SettingsNavigationViewController.swift in Sources */,
 				1AA61D372B51DD8C008C3E3F /* SpecialtyChoiceTableViewCell.swift in Sources */,
 				1AC775C02B51C7A60028CEC7 /* ProfessionalTableViewController.swift in Sources */,

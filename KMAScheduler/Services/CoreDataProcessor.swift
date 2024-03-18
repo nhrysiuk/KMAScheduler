@@ -24,7 +24,11 @@ class CoreDataProcessor {
     }
     
     func saveContext() {
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func fetchSpecialties() -> [MySpecialty] {

@@ -92,6 +92,10 @@ extension ProfessionalViewController: UITableViewDataSource {
             cell.label.text = filteredSubjects[indexPath.row].name
         }
         
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        cell.selectedBackgroundView = selectedView
+        
         return cell
     }
     
