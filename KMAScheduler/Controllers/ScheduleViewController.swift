@@ -60,7 +60,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
@@ -131,18 +131,16 @@ extension ScheduleViewController: UITableViewDataSource {
         return lessons.count
     }
     
+#warning("дура зроби людське депенденсі інджекшн")
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Subject", for: indexPath) as! SubjectTableViewCell
         
         if let name = lessons[indexPath.row].name, let time = lessons[indexPath.row].lessonTime {
             print(name)
-            cell.label.text = String(name) + " " + String(time)
+            cell.nameLabel.text = String(name)
+            cell.timeLabel.text = String(time)
         }
         
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
-
         return cell
     }
     

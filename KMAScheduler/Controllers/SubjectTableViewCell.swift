@@ -11,16 +11,25 @@ class SubjectTableViewCell: UITableViewCell {
 
     static let identifier = "Subject"
     
-    var label: UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkBlue
         label.textAlignment = .left
-        label.font = UIFont(name: "ProbaPro-Medium", size: 24)
+        label.font = UIFont(name: "ProbaPro-Medium", size: 23)
+        return label
+    }()
+    
+    var timeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkBlue
+        label.textAlignment = .left
+        label.font = UIFont(name: "ProbaPro-Medium", size: 17)
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.setupUI()
     }
     
@@ -37,18 +46,30 @@ class SubjectTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
-        self.backgroundColor = UIColor.backgroundBlue
+        backgroundColor = UIColor.backgroundBlue
         
-        self.accessoryType = .disclosureIndicator
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        selectedBackgroundView = selectedView
         
-        self.contentView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        accessoryType = .disclosureIndicator
+    }
+    
+    func setLayout() {
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(timeLabel)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            label.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -15),
-            label.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            label.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            timeLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            timeLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            timeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
         ])
     }
 }

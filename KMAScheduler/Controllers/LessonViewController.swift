@@ -40,6 +40,24 @@ class LessonViewController: UIViewController {
         return textView
     }()
     
+    private var saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Зберегти", for: .normal)
+        button.setTitleColor(UIColor.cobalt, for: .normal)
+        button.titleLabel?.font = UIFont(name: "ProbaPro-Medium", size: 20)
+        
+        return button
+    }()
+    
+    private var cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Скасувати", for: .normal)
+        button.setTitleColor(UIColor.cobalt, for: .normal)
+        button.titleLabel?.font = UIFont(name: "ProbaPro-Medium", size: 20)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,16 +65,18 @@ class LessonViewController: UIViewController {
         setLayout()
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.backgroundColor = .backgroundBlue
-        nameLabel.text = lesson?.name ?? "Предмет"
+        nameLabel.text = lesson?.time ?? "08:30"
         notesTextView.text = lesson?.notes
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonTapped))
-        print(navigationController)
-        navigationController?.navigationItem.rightBarButtonItem = button
+        
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
     
-    func setLayout() {
+    private func setLayout() {
+        view.addSubview(saveButton)
+        view.addSubview(cancelButton)
         view.addSubview(nameLabel)
         view.addSubview(notesLabel)
         view.addSubview(notesTextView)
@@ -64,6 +84,8 @@ class LessonViewController: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         notesLabel.translatesAutoresizingMaskIntoConstraints = false
         notesTextView.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -75,15 +97,26 @@ class LessonViewController: UIViewController {
             notesTextView.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 10),
             notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            notesTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            notesTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
         ])
     }
     
-    func configure(with lesson: LessonModel) {
+    private func configure(with lesson: LessonModel) {
         self.lesson = lesson
     }
     
-    @objc func doneButtonTapped() {
+    @objc private func saveButtonTapped() {
+        let notes = notesTextView.text
         
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
 }

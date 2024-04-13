@@ -16,6 +16,6 @@ extension UIColor {
     public class var selectedBlue: UIColor { UIColor(red: 201/255, green: 217/255, blue: 255/255, alpha: 1) }
     public class var grayBLue: UIColor { UIColor(red: 78/255, green: 99/255, blue: 145/255, alpha: 1.0) }
     public class var searchBarLightBlue: UIColor { UIColor(red: 207/255, green: 219/255, blue: 242/255, alpha: 1.0) }
-    
+    public class var cobalt: UIColor { UIColor(red:13/255, green: 82/255, blue: 191/255, alpha: 1.0) }
     
 }
