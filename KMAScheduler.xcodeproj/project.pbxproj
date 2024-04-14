@@ -125,6 +125,7 @@
 				1A094B462B4F4DC900D8E544 /* Views */,
 				1A094B3A2B4E024400D8E544 /* Info.plist */,
 				1A094B352B4E024400D8E544 /* Assets.xcassets */,
+				1A094B372B4E024400D8E544 /* LaunchScreen.storyboard */,
 				1A094B2C2B4E024200D8E544 /* AppDelegate.swift */,
 				1A094B2E2B4E024200D8E544 /* SceneDelegate.swift */,
 				1AB595DC2B9B3937007EE602 /* SubjectsDataModel.xcdatamodeld */,
@@ -137,7 +138,6 @@
 			children = (
 				1A094B422B4F460400D8E544 /* TabBarViewController.swift */,
 				1A094B302B4E024200D8E544 /* ScheduleViewController.swift */,
-				1AA61D3C2B51ED9E008C3E3F /* SubjectTableViewCell.swift */,
 				1AA61D3E2B51F3A2008C3E3F /* LessonViewController.swift */,
 				1A094B4A2B4F532D00D8E544 /* SettingsNavigationViewController.swift */,
 				1A094B472B4F504900D8E544 /* SettingsTableViewController.swift */,
@@ -162,7 +162,7 @@
 		1A094B462B4F4DC900D8E544 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1A094B372B4E024400D8E544 /* LaunchScreen.storyboard */,
+				1AA61D3C2B51ED9E008C3E3F /* SubjectTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -9,7 +9,8 @@ import UIKit
 
 class LessonViewController: UIViewController {
 
-    private var lesson: LessonModel?
+    // MARK: - Properties
+    private var lesson: Lesson
     
     private var nameLabel: UILabel = {
         let label = UILabel()
@@ -58,6 +59,17 @@ class LessonViewController: UIViewController {
         return button
     }()
     
+    // MARK: - View controller lifecycle
+    init(lesson: Lesson) {
+        self.lesson = lesson
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,10 +77,11 @@ class LessonViewController: UIViewController {
         setLayout()
     }
     
+    // MARK: - Set up
     private func setupUI() {
         view.backgroundColor = .backgroundBlue
-        nameLabel.text = lesson?.time ?? "08:30"
-        notesTextView.text = lesson?.notes
+        nameLabel.text = lesson.lessonTime
+        notesTextView.text = lesson.notes
         
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
@@ -105,13 +118,11 @@ class LessonViewController: UIViewController {
         ])
     }
     
-    private func configure(with lesson: LessonModel) {
-        self.lesson = lesson
-    }
-    
+    // MARK: - Buttons actions handling
     @objc private func saveButtonTapped() {
         let notes = notesTextView.text
-        
+        lesson.notes = notes
+        CoreDataProcessor.shared.saveContext()
         
         dismiss(animated: true, completion: nil)
     }

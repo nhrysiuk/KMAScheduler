@@ -9,13 +9,15 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    //MARK: - View controllers lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup()
+        setUp()
     }
-
-    func setup() {
+    
+    //MARK: - Set up
+    private func setUp() {
         let schedule = makeController(with: UIImage(systemName: "calendar"), vc: ScheduleViewController())
         let settings = makeController(with: UIImage(systemName: "gearshape.fill"), vc: SettingsTableViewController())
         
@@ -27,13 +29,12 @@ class TabBarController: UITabBarController {
         tabBar.standardAppearance = tabBarAppearance
     }
     
-    func makeController(with image: UIImage?, vc: UIViewController) -> UINavigationController {
+    private func makeController(with image: UIImage?, vc: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: vc)
         
         nav.tabBarItem.image = image
         nav.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: nil, action: nil)
         nav.navigationItem.backBarButtonItem?.tintColor = .darkBlue
-        
         
         return nav
     }

@@ -46,6 +46,9 @@ class FileReader {
     }
     
     static func fetchLessonsFromFile() {
+        let data = CoreDataProcessor.shared.fetch(Lesson.self)
+        guard data.isEmpty else { return }
+        
         do {
             if let lessonsFilePath = lessonsFilePath {
                 let data = try Data(contentsOf: URL(fileURLWithPath: lessonsFilePath))

@@ -58,5 +58,39 @@ class CoreDataProcessor {
             print("Помилка під час видалення спеціальностей: \(error.localizedDescription)")
         }
     }
+    
+    func fetchLessons(for date: Date) -> [Lesson] {
+        let fetchedLessons = CoreDataProcessor.shared.fetch(Lesson.self)
+        
+        guard !fetchedLessons.isEmpty else { return [] }
+
+        let subjects = CoreDataProcessor.shared.fetch(Subject.self)
+        let filteredSubjects = subjects.filter { $0.isRegistered }
+        let ids = filteredSubjects.map { $0.id }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
+        let calendar = Calendar.current
+        let date1 = calendar.dateComponents([.day, .month, .year], from: date)
+        
+        let filteredLessons = fetchedLessons.filter { lesson in
+            print(lesson)
+            guard let dateString = dateFormatter.date(from: lesson.lessonDate!) else { return false }
+            let date2 = calendar.dateComponents([.day, .month, .year], from: dateString)
+            
+            let subject = filteredSubjects.first { $0.id == lesson.id }
+            let group = subject?.group
+
+            if ids.contains(lesson.id) && date2 == date1 && lesson.group == group {
+                print(lesson.id)
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        return filteredLessons
+    }
 }
 
