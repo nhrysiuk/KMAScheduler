@@ -13,6 +13,9 @@ class FileReader {
     static let lessonsFilePath = Bundle.main.path(forResource: "schedule", ofType: "json")
     
     static func fetchSubjectsFromFile() {
+        let data = CoreDataProcessor.shared.fetch(Subject.self)
+        guard data.isEmpty else { return }
+        
         do {
             if let subjectsFilePath = subjectsFilePath {
                 let data = try Data(contentsOf: URL(fileURLWithPath: subjectsFilePath))

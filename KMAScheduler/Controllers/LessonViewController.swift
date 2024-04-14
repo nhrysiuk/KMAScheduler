@@ -15,7 +15,7 @@ class LessonViewController: UIViewController {
     private var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.darkBlue
-        label.font = UIFont(name: "ProbaPro-Bold", size: 27)
+        label.font = UIFont(name: Const.mediumFontName, size: Const.bigFont)
         label.textAlignment = .center
         
         return label
@@ -24,7 +24,7 @@ class LessonViewController: UIViewController {
     private var notesLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.darkBlue
-        label.font = UIFont(name: "ProbaPro-Medium", size: 23)
+        label.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
         label.text = "Нотатки"
         
         return label
@@ -33,7 +33,7 @@ class LessonViewController: UIViewController {
     private var notesTextView: UITextView = {
         let textView = UITextView()
         textView.textColor = UIColor.grayBLue
-        textView.font = UIFont(name: "ProbaPro-Medium", size: 23)
+        textView.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.backgroundColor = UIColor.lightBlue
         textView.frame.size.height = 300
@@ -45,7 +45,7 @@ class LessonViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Зберегти", for: .normal)
         button.setTitleColor(UIColor.cobalt, for: .normal)
-        button.titleLabel?.font = UIFont(name: "ProbaPro-Medium", size: 20)
+        button.titleLabel?.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
         
         return button
     }()
@@ -54,7 +54,7 @@ class LessonViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Скасувати", for: .normal)
         button.setTitleColor(UIColor.cobalt, for: .normal)
-        button.titleLabel?.font = UIFont(name: "ProbaPro-Medium", size: 20)
+        button.titleLabel?.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
         
         return button
     }()
@@ -102,15 +102,15 @@ class LessonViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Const.safeOffset),
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
             nameLabel.bottomAnchor.constraint(equalTo: notesLabel.topAnchor, constant: -40),
-            notesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
-            notesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            notesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Const.safeOffset),
+            notesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
             notesTextView.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 10),
-            notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            notesTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Const.safeOffset),
+            notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
+            notesTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Const.safeOffset),
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),

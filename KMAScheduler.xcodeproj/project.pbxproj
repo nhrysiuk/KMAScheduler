@@ -14,7 +14,6 @@
 		1A094B392B4E024400D8E544 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A094B372B4E024400D8E544 /* LaunchScreen.storyboard */; };
 		1A094B432B4F460400D8E544 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B422B4F460400D8E544 /* TabBarViewController.swift */; };
 		1A094B482B4F504900D8E544 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B472B4F504900D8E544 /* SettingsTableViewController.swift */; };
-		1A094B4B2B4F532E00D8E544 /* SettingsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B4A2B4F532D00D8E544 /* SettingsNavigationViewController.swift */; };
 		1A094B4F2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B4E2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift */; };
 		1A094B512B4F598400D8E544 /* SelectiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B502B4F598400D8E544 /* SelectiveTableViewCell.swift */; };
 		1A094B532B50611A00D8E544 /* SpecialtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A094B522B50611A00D8E544 /* SpecialtyViewController.swift */; };
@@ -40,8 +39,8 @@
 		1AB595DE2B9B3937007EE602 /* SubjectsDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1AB595DC2B9B3937007EE602 /* SubjectsDataModel.xcdatamodeld */; };
 		1AB595E12B9B41A8007EE602 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB595E02B9B41A8007EE602 /* FileReader.swift */; };
 		1AB595E32B9B4811007EE602 /* CoreDataProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB595E22B9B4811007EE602 /* CoreDataProcessor.swift */; };
+		1AB9D2CD2BCBFB31005480D4 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB9D2CC2BCBFB31005480D4 /* Const.swift */; };
 		1AC775C02B51C7A60028CEC7 /* ProfessionalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC775BF2B51C7A60028CEC7 /* ProfessionalTableViewController.swift */; };
-		1AE460742BA32A56006D2B07 /* Specialties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE460732BA32A56006D2B07 /* Specialties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +53,6 @@
 		1A094B3A2B4E024400D8E544 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A094B422B4F460400D8E544 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1A094B472B4F504900D8E544 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		1A094B4A2B4F532D00D8E544 /* SettingsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewController.swift; sourceTree = "<group>"; };
 		1A094B4E2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialtyTableViewCell.swift; sourceTree = "<group>"; };
 		1A094B502B4F598400D8E544 /* SelectiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveTableViewCell.swift; sourceTree = "<group>"; };
 		1A094B522B50611A00D8E544 /* SpecialtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialtyViewController.swift; sourceTree = "<group>"; };
@@ -80,8 +78,8 @@
 		1AB595DD2B9B3937007EE602 /* SubjectsDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SubjectsDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1AB595E02B9B41A8007EE602 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		1AB595E22B9B4811007EE602 /* CoreDataProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProcessor.swift; sourceTree = "<group>"; };
+		1AB9D2CC2BCBFB31005480D4 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		1AC775BF2B51C7A60028CEC7 /* ProfessionalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalTableViewController.swift; sourceTree = "<group>"; };
-		1AE460732BA32A56006D2B07 /* Specialties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specialties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +137,6 @@
 				1A094B422B4F460400D8E544 /* TabBarViewController.swift */,
 				1A094B302B4E024200D8E544 /* ScheduleViewController.swift */,
 				1AA61D3E2B51F3A2008C3E3F /* LessonViewController.swift */,
-				1A094B4A2B4F532D00D8E544 /* SettingsNavigationViewController.swift */,
 				1A094B472B4F504900D8E544 /* SettingsTableViewController.swift */,
 				1A094B4E2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift */,
 				1A58F34E2B50A72900F9C85F /* NormativeTableViewCell.swift */,
@@ -171,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				1A918F4F2BA8780500EEFE5D /* UIColorExtension.swift */,
+				1AB9D2CC2BCBFB31005480D4 /* Const.swift */,
 			);
 			path = Additional;
 			sourceTree = "<group>";
@@ -187,7 +185,6 @@
 		1AE460722BA32A39006D2B07 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1AE460732BA32A56006D2B07 /* Specialties.swift */,
 				1A69D3E12BA5C9FE00E548F6 /* SubjectModel.swift */,
 				1A14295B2BC8400700963CA9 /* LessonModel.swift */,
 			);
@@ -271,7 +268,6 @@
 				1A094B4F2B4F57EF00D8E544 /* SpecialtyTableViewCell.swift in Sources */,
 				1AA61D352B51D42B008C3E3F /* SearchSelectiveViewController.swift in Sources */,
 				1A58F3512B50A7B300F9C85F /* NormativeTableViewController.swift in Sources */,
-				1AE460742BA32A56006D2B07 /* Specialties.swift in Sources */,
 				1A58F3532B50A90300F9C85F /* CurrentSpecialtyViewController.swift in Sources */,
 				1A69D3E82BA7152000E548F6 /* ProfessionalViewController.swift in Sources */,
 				1A69D3E42BA6E8DC00E548F6 /* ProfessionalTableViewCell.swift in Sources */,
@@ -291,11 +287,11 @@
 				1A094B512B4F598400D8E544 /* SelectiveTableViewCell.swift in Sources */,
 				1A094B532B50611A00D8E544 /* SpecialtyViewController.swift in Sources */,
 				1A918F502BA8780500EEFE5D /* UIColorExtension.swift in Sources */,
-				1A094B4B2B4F532E00D8E544 /* SettingsNavigationViewController.swift in Sources */,
 				1AA61D372B51DD8C008C3E3F /* SpecialtyChoiceTableViewCell.swift in Sources */,
 				1AC775C02B51C7A60028CEC7 /* ProfessionalTableViewController.swift in Sources */,
 				1AB595E32B9B4811007EE602 /* CoreDataProcessor.swift in Sources */,
 				1AA61D3F2B51F3A2008C3E3F /* LessonViewController.swift in Sources */,
+				1AB9D2CD2BCBFB31005480D4 /* Const.swift in Sources */,
 				1A58BE3D2B5192C5009B6540 /* NormativeGroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

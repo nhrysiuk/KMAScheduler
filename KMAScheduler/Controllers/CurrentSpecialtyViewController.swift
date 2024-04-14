@@ -82,7 +82,7 @@ class CurrentSpecialtyViewController: UIViewController, CurrentSpecialtyDelegate
             specialtyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.topAnchor.constraint(equalTo: specialtyLabel.bottomAnchor, constant: 20.0),
+            button.topAnchor.constraint(equalTo: specialtyLabel.bottomAnchor, constant: 20),
         ])
         
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)

@@ -9,47 +9,38 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
+    // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchSubjectsIfNeeded()
+        FileReader.fetchSubjectsFromFile()
         setup()
     }
 
-    func setup() {
-        self.tableView.backgroundColor = UIColor.backgroundBlue
-        
+    // MARK: - Set up
+    private func setup() {
+        tableView.backgroundColor = UIColor.backgroundBlue
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Назад", style: .plain, target: nil, action: nil)
-
-        self.navigationItem.title = "Налаштування"
-        tableView.register(SpecialtyTableViewCell.self, forCellReuseIdentifier: "Specialty")
+        navigationItem.title = "Налаштування"
+        
+        tableView.register(SpecialtyTableViewCell.self, forCellReuseIdentifier: "SpecialtyCell")
         tableView.register(NormativeTableViewCell.self, forCellReuseIdentifier: "Normative")
         tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
         tableView.register(SelectiveTableViewCell.self, forCellReuseIdentifier: "Selective")
     }
-    
-    func fetchSubjectsIfNeeded() {
-        let data = CoreDataProcessor.shared.fetch(Subject.self)
-        guard data.isEmpty else { return }
-        FileReader.fetchSubjectsFromFile()
-    }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
+        
         switch indexPath.row {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Specialty", for: indexPath) as! SpecialtyTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyCell", for: indexPath) as! SpecialtyTableViewCell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "Normative", for: indexPath) as! NormativeTableViewCell
         case 2:
@@ -57,19 +48,14 @@ class SettingsTableViewController: UITableViewController {
         case 3:
             cell = tableView.dequeueReusableCell(withIdentifier: "Selective", for: indexPath) as! SelectiveTableViewCell
         default:
-            print(indexPath.row)
             fatalError()
         }
-        
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        60
+        Const.tableCellHeight
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

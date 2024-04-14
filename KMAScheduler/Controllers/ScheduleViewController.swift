@@ -61,7 +61,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: Const.smallOffset),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
@@ -104,7 +104,7 @@ extension ScheduleViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return Const.tableCellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

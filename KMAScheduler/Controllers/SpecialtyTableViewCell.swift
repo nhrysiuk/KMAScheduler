@@ -8,47 +8,52 @@
 import UIKit
 
 class SpecialtyTableViewCell: UITableViewCell {
-
-    static let identifier = "Specialty"
+    
+    // MARK: - Properties
+    static let identifier = "SpecialtyCell"
     
     private let myLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkBlue
         label.textAlignment = .left
-        label.font = UIFont(name: "ProbaPro-Medium", size: 24)
+        label.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
         label.text = "Спеціальність"
+        
         return label
     }()
     
+    // MARK: - View controller lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupUI()
+        
+        setupUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    // MARK: - Set up
+    private func setupUI() {
+        backgroundColor = UIColor.backgroundBlue
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        selectedBackgroundView = selectedView
+        
+        accessoryType = .disclosureIndicator
+        contentView.addSubview(myLabel)
     }
     
-    func setupUI() {
-        self.backgroundColor = UIColor.backgroundBlue
-        
-        self.accessoryType = .disclosureIndicator
-        self.contentView.addSubview(myLabel)
+    private func setLayout() {
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            myLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            myLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -15),
-            myLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            myLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            myLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.safeOffset),
+            myLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Const.safeOffset),
+            myLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            myLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
