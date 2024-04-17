@@ -24,8 +24,8 @@ class TabBarController: UITabBarController {
         self.setViewControllers([schedule, settings], animated: true)
         
         let tabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.darkBlue
-            tabBarAppearance.stackedLayoutAppearance.normal.iconColor = UIColor.grayBLue
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = .darkBlue
+        tabBarAppearance.stackedLayoutAppearance.normal.iconColor = .grayBLue
         tabBar.standardAppearance = tabBarAppearance
     }
     

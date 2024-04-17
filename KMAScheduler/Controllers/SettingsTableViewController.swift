@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
     // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,40 +16,40 @@ class SettingsTableViewController: UITableViewController {
         FileReader.fetchSubjectsFromFile()
         setup()
     }
-
+    
     // MARK: - Set up
     private func setup() {
-        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = .backgroundBlue
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Назад", style: .plain, target: nil, action: nil)
         navigationItem.title = "Налаштування"
         
-        tableView.register(SpecialtyTableViewCell.self, forCellReuseIdentifier: "SpecialtyCell")
-        tableView.register(NormativeTableViewCell.self, forCellReuseIdentifier: "Normative")
-        tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
-        tableView.register(SelectiveTableViewCell.self, forCellReuseIdentifier: "Selective")
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsCell")
+        
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
         
-        switch indexPath.row {
+        let name = switch indexPath.row {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyCell", for: indexPath) as! SpecialtyTableViewCell
+            "Спеціальність"
         case 1:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Normative", for: indexPath) as! NormativeTableViewCell
+            "Нормативні дисципліни"
         case 2:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
+            "Професійні дисципліни"
         case 3:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Selective", for: indexPath) as! SelectiveTableViewCell
+            "Дисципліни вільного вибору"
         default:
             fatalError()
         }
+        
+        cell.configure(with: name)
         
         return cell
     }

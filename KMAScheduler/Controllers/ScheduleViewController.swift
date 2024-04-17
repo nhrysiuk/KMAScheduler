@@ -26,6 +26,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
         
         return datePicker
     }()
+    
     // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
     
         FileReader.fetchLessonsFromFile()
         lessons = CoreDataProcessor.shared.fetchLessons(for: Date())
+        lessons.sort { $0.lessonTime! < $1.lessonTime! }
         tableView.reloadData()
     }
     
     // MARK: - Set up
     private func setupUI() {
-        view.backgroundColor = UIColor.backgroundBlue
+        view.backgroundColor = .backgroundBlue
         
         tableView.register(SubjectTableViewCell.self, forCellReuseIdentifier: "SubjectCell")
         
@@ -82,6 +84,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate {
         print(self.datePicker.date)
         setWeek(for: date)
         lessons = CoreDataProcessor.shared.fetchLessons(for: date)
+        lessons.sort { $0.lessonTime! < $1.lessonTime! }
         tableView.reloadData()
         
         dismiss(animated: true, completion: nil)

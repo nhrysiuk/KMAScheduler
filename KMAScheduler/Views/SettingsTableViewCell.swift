@@ -7,17 +7,16 @@
 
 import UIKit
 
-class SpecialtyTableViewCell: UITableViewCell {
+class SettingsTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    static let identifier = "SpecialtyCell"
+    static let identifier = "SettingsCell"
     
     private let myLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkBlue
         label.textAlignment = .left
-        label.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
-        label.text = "Спеціальність"
+        label.font = Const.mediumFont
         
         return label
     }()
@@ -35,18 +34,22 @@ class SpecialtyTableViewCell: UITableViewCell {
     }
     
     // MARK: - Set up
+    func configure(with name: String) {
+        myLabel.text = name
+    }
+    
     private func setupUI() {
-        backgroundColor = UIColor.backgroundBlue
+        backgroundColor = .backgroundBlue
         
         let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
+        selectedView.backgroundColor = .searchBarLightBlue
         selectedBackgroundView = selectedView
         
         accessoryType = .disclosureIndicator
-        contentView.addSubview(myLabel)
     }
     
     private func setLayout() {
+        contentView.addSubview(myLabel)
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

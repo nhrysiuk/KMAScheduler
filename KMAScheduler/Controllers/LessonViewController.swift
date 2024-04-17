@@ -14,7 +14,7 @@ class LessonViewController: UIViewController {
     
     private var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.darkBlue
+        label.textColor = .darkBlue
         label.font = UIFont(name: Const.mediumFontName, size: Const.bigFont)
         label.textAlignment = .center
         
@@ -23,8 +23,8 @@ class LessonViewController: UIViewController {
     
     private var notesLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.darkBlue
-        label.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
+        label.textColor = .darkBlue
+        label.font = Const.mediumFont
         label.text = "Нотатки"
         
         return label
@@ -32,10 +32,10 @@ class LessonViewController: UIViewController {
     
     private var notesTextView: UITextView = {
         let textView = UITextView()
-        textView.textColor = UIColor.grayBLue
-        textView.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
+        textView.textColor = .grayBLue
+        textView.font = Const.mediumFont
         textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.backgroundColor = UIColor.lightBlue
+        textView.backgroundColor = .lightBlue
         textView.frame.size.height = 300
         
         return textView
@@ -44,8 +44,8 @@ class LessonViewController: UIViewController {
     private var saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Зберегти", for: .normal)
-        button.setTitleColor(UIColor.cobalt, for: .normal)
-        button.titleLabel?.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
+        button.setTitleColor(.cobalt, for: .normal)
+        button.titleLabel?.font = Const.mediumFont
         
         return button
     }()
@@ -53,8 +53,8 @@ class LessonViewController: UIViewController {
     private var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Скасувати", for: .normal)
-        button.setTitleColor(UIColor.cobalt, for: .normal)
-        button.titleLabel?.font = UIFont(name: Const.mediumFontName, size: Const.mediumFont)
+        button.setTitleColor(.cobalt, for: .normal)
+        button.titleLabel?.font =  Const.mediumFont
         
         return button
     }()

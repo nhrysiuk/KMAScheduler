@@ -7,10 +7,13 @@
 
 import UIKit
 
-class SelectionTableViewController: UITableViewController, NormativeProtocol {
+class SelectionTableViewController: UITableViewController, NormativeProtocolDelegate {
     
+    // MARK: - Properties
     var selectives = [Subject]()
     
+    
+    // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,8 +21,10 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
         fetchData()
     }
     
+    
+    // MARK: - Set Up
     func setup() {
-        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = .backgroundBlue
         tableView.allowsSelection = false
         
         navigationController?.navigationBar.tintColor = .darkBlue
@@ -29,20 +34,19 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
         tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
     }
     
-    func fetchData() {
-        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
-        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
-        selectives = allSubjects.filter { ($0.isRegistered && $0.specialty == mySpecialty.name && $0.type == "selective") ||
-                                         ($0.isRegistered && $0.specialty != mySpecialty.name) }
-        tableView.reloadData()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.topItem?.title = "Налаштування"
     }
     
+    
+    func fetchData() {
+        selectives = DBProcessor.shared.fetchSelectives()
+        tableView.reloadData()
+    }
+    
+    // MARK: - Methods
     @objc func addButtonTapped() {
         let vc = SelectionViewController()
         vc.delegate = self
@@ -50,11 +54,6 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
     }
     
     // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectives.count
     }
@@ -62,18 +61,13 @@ class SelectionTableViewController: UITableViewController, NormativeProtocol {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NormativeGroupCell", for: indexPath) as! NormativeGroupTableViewCell
         
-        cell.delegate = self
-        cell.configure(with: selectives[indexPath.row])
-        
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
+        cell.configure(with: selectives[indexPath.row], and: self)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return Const.tableCellHeight
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

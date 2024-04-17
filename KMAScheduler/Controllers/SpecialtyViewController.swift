@@ -9,43 +9,52 @@ import UIKit
 
 class SpecialtyViewController: UIViewController, UITableViewDelegate {
     
+    //MARK: - Properties
     var delegate: CurrentSpecialtyDelegate?
     
-    var filteredSpecialties: [String] = []
-    var isFiltering = false
+    private var filteredSpecialties: [String] = []
+    private var isFiltering = false
     
     private var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = .backgroundBlue
         
         return tableView
     }()
     
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.barTintColor = UIColor.backgroundBlue
+        searchBar.barTintColor = .backgroundBlue
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField {
-            textFieldInsideSearchBar.backgroundColor = UIColor.searchBarLightBlue
+            textFieldInsideSearchBar.backgroundColor = .searchBarLightBlue
         }
         
         return searchBar
     }()
     
+    //MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
+        setup()
+        setLayout()
     }
     
-    func setupUI() {
-        tableView.register(SpecialtyChoiceTableViewCell.self, forCellReuseIdentifier: "SpecialtyChoice")
+    //MARK: - Set up
+    private func setup() {
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         
-        view.backgroundColor = UIColor.backgroundBlue
-        navigationController?.navigationBar.prefersLargeTitles = false
+        view.backgroundColor = .backgroundBlue
         navigationItem.backBarButtonItem?.tintColor = .darkBlue
-
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CustomCell")
+        filteredSpecialties = Const.specialties
         
+            
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
+    }
+    
+    private func setLayout() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
         
@@ -62,17 +71,10 @@ class SpecialtyViewController: UIViewController, UITableViewDelegate {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        filteredSpecialties = Const.specialties
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
     }
 }
 
 // MARK: - Table view data source
-
 extension SpecialtyViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,12 +82,15 @@ extension SpecialtyViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyChoice", for: indexPath) as! SpecialtyChoiceTableViewCell
-        if filteredSpecialties.isEmpty {
-            cell.label.text = Const.specialties[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
+    
+        let text = if filteredSpecialties.isEmpty {
+            Const.specialties[indexPath.row]
         } else {
-            cell.label.text = filteredSpecialties[indexPath.row]
+            filteredSpecialties[indexPath.row]
         }
+    
+        cell.configure(with: text)
         
         return cell
     }
@@ -110,20 +115,22 @@ extension SpecialtyViewController: UITableViewDataSource {
         
         delegate?.update()
         
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
+    //MARK: - UISearchBarDelegate
 extension SpecialtyViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            self.filteredSpecialties = Const.specialties
-            self.tableView.reloadData()
+            filteredSpecialties = Const.specialties
+            tableView.reloadData()
+            
             return
         }
         
-        self.filteredSpecialties = Const.specialties.filter {$0.contains(searchText)}
-        self.tableView.reloadData()
+        filteredSpecialties = Const.specialties.filter {$0.contains(searchText)}
+        tableView.reloadData()
     }
 }

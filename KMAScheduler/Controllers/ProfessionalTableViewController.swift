@@ -7,37 +7,17 @@
 
 import UIKit
 
-class ProfessionalTableViewController: UITableViewController, NormativeProtocol {
+class ProfessionalTableViewController: UITableViewController, NormativeProtocolDelegate {
     
-    var selectives = [Subject]()
+    //MARK: - Properties
+    private var selectives = [Subject]()
     
+    //MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         fetchData()
-    }
-    
-    func setup() {
-        tableView.backgroundColor = UIColor.backgroundBlue
-        tableView.allowsSelection = false
-        
-        navigationController?.navigationBar.tintColor = .darkBlue
-        navigationItem.title = "Професійні дисципліни"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
-        
-        tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
-    }
-    
-    func fetchData() {
-        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
-        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
-        selectives = allSubjects.filter { subject in
-            return subject.isRegistered &&
-                   subject.specialty == mySpecialty.name &&
-                   subject.type == "prof"
-        }
-        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,18 +26,32 @@ class ProfessionalTableViewController: UITableViewController, NormativeProtocol 
         self.navigationController?.navigationBar.topItem?.title = "Налаштування"
     }
     
-    @objc func addButtonTapped() {
+    //MARK: - Set Up
+    private func setup() {
+        tableView.backgroundColor = .backgroundBlue
+        tableView.allowsSelection = false
+        
+        navigationController?.navigationBar.tintColor = .darkBlue
+        navigationItem.title = "Професійні дисципліни"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        
+        tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
+        
+    }
+    
+    //MARK: - Methods
+    @objc private func addButtonTapped() {
         let vc = ProfessionalViewController()
         vc.delegate = self
         self.navigationController?.present(vc, animated: true)
     }
-    
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+    func fetchData() {
+        selectives = DBProcessor.shared.fetchProfessionals()
+        tableView.reloadData()
     }
     
+    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectives.count
     }
@@ -65,12 +59,7 @@ class ProfessionalTableViewController: UITableViewController, NormativeProtocol 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NormativeGroupCell", for: indexPath) as! NormativeGroupTableViewCell
         
-        cell.delegate = self
-        cell.configure(with: selectives[indexPath.row])
-        
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
+        cell.configure(with: selectives[indexPath.row], and: self)
         
         return cell
     }

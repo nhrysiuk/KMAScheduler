@@ -9,47 +9,45 @@ import UIKit
 
 class ProfessionalViewController: UIViewController, UITableViewDelegate {
 
-    var delegate: NormativeProtocol?
+    // MARK: - Properties
+    var delegate: NormativeProtocolDelegate?
     
-    var filteredSubjects = [Subject]()
-    var professionalSubjects = [Subject]()
+    private var filteredSubjects = [Subject]()
+    private var professionalSubjects = [Subject]()
     
     private var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = .backgroundBlue
         
         return tableView
     }()
     
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.barTintColor = UIColor.backgroundBlue
+        searchBar.barTintColor = .backgroundBlue
         
         return searchBar
     }()
     
+    // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
+        professionalSubjects = DBProcessor.shared.fetchAllProfessionals()
         setupUI()
+        setLayout()
     }
     
-    func fetchData() {
-        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
-        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
-        professionalSubjects = allSubjects.filter { $0.specialty == mySpecialty.name &&
-            $0.type == "prof" && !$0.isRegistered }
-        print(professionalSubjects)
-    }
-    
-    func setupUI() {
-        tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
+    //MARK: - Set Up
+    private func setupUI() {
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         
-        view.backgroundColor = UIColor.backgroundBlue
+        view.backgroundColor = .backgroundBlue
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.backBarButtonItem?.tintColor = .darkBlue
-        
+    }
+    
+    private func setLayout() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
         
@@ -76,25 +74,23 @@ class ProfessionalViewController: UIViewController, UITableViewDelegate {
 }
 
 // MARK: - Table view data source
-
 extension ProfessionalViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(filteredSubjects.count)
         return filteredSubjects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
-        if filteredSubjects.isEmpty {
-            cell.label.text = professionalSubjects[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
+        let text = if filteredSubjects.isEmpty {
+            professionalSubjects[indexPath.row].name
         } else {
-            cell.label.text = filteredSubjects[indexPath.row].name
+            filteredSubjects[indexPath.row].name
         }
         
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
+        guard let text else { return cell }
+        
+        cell.configure(with: text)
         
         return cell
     }
@@ -121,6 +117,7 @@ extension ProfessionalViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UISearchBarDelegate
 extension ProfessionalViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

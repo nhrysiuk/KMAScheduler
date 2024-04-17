@@ -9,46 +9,51 @@ import UIKit
 
 class SelectionViewController: UIViewController, UITableViewDelegate {
     
-    var delegate: NormativeProtocol?
+    // MARK: - Properties
+    var delegate: NormativeProtocolDelegate?
     
     var filteredSubjects = [Subject]()
     var professionalSubjects = [Subject]()
     
     private var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = UIColor.backgroundBlue
+        tableView.backgroundColor = .backgroundBlue
         
         return tableView
     }()
     
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.barTintColor = UIColor.backgroundBlue
+        searchBar.barTintColor = .backgroundBlue
         
         return searchBar
     }()
     
+    // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
+        professionalSubjects = DBProcessor.shared.fetchAllSelectives()
         setupUI()
+        setLayout()
     }
     
-    func fetchData() {
-        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
-        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
-        professionalSubjects = allSubjects.filter { (!$0.isRegistered && $0.specialty == mySpecialty.name && $0.type == "selective") ||
-            (!$0.isRegistered && $0.specialty != mySpecialty.name) }
-    }
-    
+    // MARK: - Set Up
     func setupUI() {
-        tableView.register(ProfessionalTableViewCell.self, forCellReuseIdentifier: "Professional")
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         
-        view.backgroundColor = UIColor.backgroundBlue
+        view.backgroundColor = .backgroundBlue
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.backBarButtonItem?.tintColor = .darkBlue
-
+        
+        filteredSubjects = professionalSubjects
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
+    }
+    
+    func setLayout() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
         
@@ -65,17 +70,10 @@ class SelectionViewController: UIViewController, UITableViewDelegate {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        filteredSubjects = professionalSubjects
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
     }
 }
 
 // MARK: - Table view data source
-
 extension SelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,22 +82,22 @@ extension SelectionViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Professional", for: indexPath) as! ProfessionalTableViewCell
-        if filteredSubjects.isEmpty {
-            cell.label.text = professionalSubjects[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
+        let text = if filteredSubjects.isEmpty {
+            professionalSubjects[indexPath.row].name
         } else {
-            cell.label.text = filteredSubjects[indexPath.row].name
+            filteredSubjects[indexPath.row].name
         }
         
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
+        guard let text else { return cell }
+        
+        cell.configure(with: text)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return Const.tableCellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -120,6 +118,7 @@ extension SelectionViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension SelectionViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

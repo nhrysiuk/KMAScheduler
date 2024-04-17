@@ -7,45 +7,39 @@
 
 import UIKit
 
-protocol NormativeProtocol {
+protocol NormativeProtocolDelegate {
     func fetchData()
 }
 
-class NormativeTableViewController: UITableViewController, NormativeProtocol {
+class NormativeTableViewController: UITableViewController, NormativeProtocolDelegate {
 
-    var normatives: [Subject] = []
+    // MARK: - Properties
+    private var normatives: [Subject] = []
     
+    // MARK: - View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup()
+        setUp()
         fetchData()
     }
 
     func fetchData() {
-        guard let mySpecialty = CoreDataProcessor.shared.fetch(MySpecialty.self).first else { return }
-        let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
-        normatives = allSubjects.filter { $0.type == "normative" && $0.specialty == mySpecialty.name }
+        normatives = DBProcessor.shared.fetchNormatives()
     }
     
-    func setup() {
-        tableView.backgroundColor = UIColor.backgroundBlue
+    // MARK: - Set Up
+    private func setUp() {
+        tableView.backgroundColor = .backgroundBlue
         tableView.allowsSelection = false
-        navigationItem.backBarButtonItem?.title = "Налаштування"
         
         navigationController?.navigationBar.tintColor = .darkBlue
         navigationItem.title = "Нормативні дисципліни"
         
         tableView.register(NormativeGroupTableViewCell.self, forCellReuseIdentifier: "NormativeGroupCell")
-        
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return normatives.count
     }
@@ -53,17 +47,12 @@ class NormativeTableViewController: UITableViewController, NormativeProtocol {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NormativeGroupCell", for: indexPath) as! NormativeGroupTableViewCell
         
-        cell.delegate = self
-        cell.configure(with: normatives[indexPath.row])
-        
-        let selectedView = UIView()
-        selectedView.backgroundColor = UIColor.searchBarLightBlue
-        cell.selectedBackgroundView = selectedView
+        cell.configure(with: normatives[indexPath.row], and: self)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return Const.tableCellHeight
     }
 }

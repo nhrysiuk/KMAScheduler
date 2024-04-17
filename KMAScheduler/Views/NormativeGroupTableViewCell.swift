@@ -9,39 +9,46 @@ import UIKit
 
 class NormativeGroupTableViewCell: UITableViewCell {
     
-    var delegate: NormativeProtocol?
+    //MARK: - Properties
+    private var delegate: NormativeProtocolDelegate?
     
     static let identifier = "Specialty"
-    var subject: Subject?
+    private var subject: Subject?
     
-    var label: UILabel = {
+    private var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ProbaPro-Medium", size: 24)
+        label.font = Const.mediumFont
         label.textColor = .darkBlue
         label.textAlignment = .left
         label.text = ""
+        
         return label
     }()
     
-    let button = UIButton(primaryAction: nil)
+    private let button = UIButton()
     
+    //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setupUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    //MARK: - Set Up
+    private func setupUI() {
+        self.backgroundColor = .backgroundBlue
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = .searchBarLightBlue
+        selectedBackgroundView = selectedView
     }
     
-    func setupUI() {
-    
-        self.backgroundColor = UIColor.backgroundBlue
-        
+    private func setLayout() {
         self.contentView.addSubview(label)
         self.contentView.addSubview(button)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,14 +67,7 @@ class NormativeGroupTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with subject: Subject) {
-        self.subject = subject
-        setupButton()
-        changeLabelName()
-    }
-    
-    func setupButton() {
-        
+    private func setupButton() {
         let actionClosure = { [self] (action: UIAction) in
             fetchAndChangeGroup(with: action.title)
         }
@@ -98,18 +98,27 @@ class NormativeGroupTableViewCell: UITableViewCell {
         button.changesSelectionAsPrimaryAction = true
         
         button.tintColor = .darkBlue
-        button.backgroundColor = .lightBlue
+        button.backgroundColor = .darkBlue
         button.layer.cornerRadius = 0
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.darkBlue.cgColor
     }
     
-    func changeLabelName() {
+    private func changeLabelName() {
         guard let subject else { return }
         label.text = subject.name
     }
     
-    func fetchAndChangeGroup(with number: String) {
+    //MARK: - Configuration
+    func configure(with subject: Subject, and delegate: NormativeProtocolDelegate) {
+        self.subject = subject
+        self.delegate = delegate
+        
+        setupButton()
+        changeLabelName()
+    }
+    
+    private func fetchAndChangeGroup(with number: String) {
         let allSubjects = CoreDataProcessor.shared.fetch(Subject.self)
         let currSubject = allSubjects.first { $0.id == subject?.id }
         
