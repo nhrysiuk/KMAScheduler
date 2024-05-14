@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class LessonViewController: UIViewController {
 
@@ -59,6 +60,15 @@ class LessonViewController: UIViewController {
         return button
     }()
     
+    private var mapButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Показати на мапі", for: .normal)
+        button.setTitleColor(.cobalt, for: .normal)
+        button.titleLabel?.font =  Const.mediumFont
+        
+        return button
+    }()
+
     // MARK: - View controller lifecycle
     init(lesson: Lesson) {
         self.lesson = lesson
@@ -85,6 +95,7 @@ class LessonViewController: UIViewController {
         
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
     }
     
     private func setLayout() {
@@ -93,20 +104,24 @@ class LessonViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(notesLabel)
         view.addSubview(notesTextView)
+        view.addSubview(mapButton)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         notesLabel.translatesAutoresizingMaskIntoConstraints = false
         notesTextView.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        mapButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Const.safeOffset),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
-            nameLabel.bottomAnchor.constraint(equalTo: notesLabel.topAnchor, constant: -40),
+            nameLabel.bottomAnchor.constraint(equalTo: mapButton.topAnchor, constant: -40),
+            notesLabel.topAnchor.constraint(equalTo: mapButton.bottomAnchor, constant: Const.safeOffset),
             notesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Const.safeOffset),
             notesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
+            mapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
             notesTextView.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 10),
             notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Const.safeOffset),
             notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Const.safeOffset),
@@ -129,5 +144,15 @@ class LessonViewController: UIViewController {
     
     @objc private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func mapButtonTapped() {
+        let mapVC = MapViewViewController()
+        let coordinate = CLLocationCoordinate2D(latitude: lesson.latitude, longitude: lesson.longitude)
+
+        mapVC.coordinate = coordinate
+        mapVC.auditorium = lesson.auditorium
+        print(coordinate)
+        present(mapVC, animated: true)
     }
 }

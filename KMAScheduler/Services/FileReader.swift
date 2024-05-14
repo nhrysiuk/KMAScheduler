@@ -78,5 +78,7 @@ class FileReader {
         lesson.lessonTime = model.time
         lesson.group = model.group
         lesson.name = model.name
+        lesson.latitude = model.latitude
+        lesson.longitude = model.longitude
     }
 }

@@ -5,7 +5,9 @@
         "group": 3,
         "date": "11.04.2024",
         "time": "11:40",
-        "auditorium": "1-120"
+        "auditorium": "1-120",
+        "latitude": 50.464187,
+        "longitude": 30.520186
     },
     {
         "id": 2,
@@ -13,14 +15,28 @@
         "group": 2,
         "date": "11.04.2024",
         "time": "13:40",
-        "auditorium": "2-225"
+        "auditorium": "4-225",
+        "latitude": 50.466433,
+        "longitude": 30.522484
     },
     {
         "id": 3,
         "name": "Менеджмент",
         "group": 1,
-        "date": "12.04.2024",
+        "date": "11.04.2024",
         "time": "08:30",
-        "auditorium": "2-214"
+        "auditorium": "7-105",
+        "latitude": 50.466184,
+        "longitude": 30.521473
+    },
+    {
+        "id": 3,
+        "name": "Кібербезпека",
+        "group": 1,
+        "date": "11.04.2024",
+        "time": "18:00",
+        "auditorium": "7-110",
+        "latitude": 50.466184,
+        "longitude": 30.521473
     }
 ]
